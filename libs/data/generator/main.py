@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import argparse
 import os
 from tqdm import trange
 from const import PANEL_SIZE
@@ -156,15 +157,16 @@ def generation(root_dir, problem_configs, num_of_problem):
                         for analytical_part in analytical_parts:
                             generate_problem(root_dir, problem_configs, num_of_problem, key, pr_type, geom_condition, interpretation, analytical_part, False)
 
+def get_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--datadir', default='./dataset/NumberSense')
+    return parser
+    
 
-def main(debug=False):
-    if debug:
-        root_dir = '/train20/intern/permanent/ycpan4/dataset/NumberSense-Tiny'
-        num_prob = 10
-    else:
-        root_dir = '/train20/intern/permanent/ycpan4/dataset/NumberSense'
-        num_prob = 10000
-
+def main():
+    parser = get_parser()
+    args = parser.parse_args()
+    root_dir = args.datadir
     if not os.path.exists(f'{root_dir}/train_set'):
         os.makedirs(f'{root_dir}/train_set')
     if not os.path.exists(f'{root_dir}/val_set'):
@@ -181,7 +183,8 @@ def main(debug=False):
                 "combination_problem": combination_prob(),
                 "partition_problem": partition_prob()}
 
-    # generation(root_dir, problems, num_prob)
+    # generation(root_dir, problems, 10)
+    generation(root_dir, problems, 10000)
     # generate_annot_files(root_dir, task='train')
     multiprocess_generate_annot_files(root_dir, task='train')
     multiprocess_generate_annot_files(root_dir, task='val')
@@ -193,6 +196,4 @@ if __name__ == "__main__":
     import random
     random.seed(seed)
     np.random.seed(seed)
-    main(
-        # debug=True
-    )
+    main()
