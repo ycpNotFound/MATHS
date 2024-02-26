@@ -5,7 +5,7 @@ Multimodal mathematical reasoning has gained increasing attention in recent time
 
 ## Dataset
 
-create Machine Number Sense dataset and annotation files.
+Create Machine Number Sense dataset and annotation files.
 
 ```bash
 python libs/data/generator/main.py
