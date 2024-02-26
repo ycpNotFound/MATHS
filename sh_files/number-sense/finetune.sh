@@ -1,8 +1,4 @@
-echo $PATH
-echo $LD_LIBRARY_PATH
-
-nvidia-smi
-
+cd runner
 # export NCCL_DEBUG=info
 # export NCCL_SOCKET_IFNAME=eno2.100
 

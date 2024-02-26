@@ -1,3 +1,4 @@
+cd runner
 python inference.py \
     --model_name_or_path 'your model path' \
     --dataset_name 'UniGeoProve' \

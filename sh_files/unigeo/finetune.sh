@@ -1,6 +1,4 @@
-# export NCCL_DEBUG=info
-# export NCCL_SOCKET_IFNAME=eno2.100
-
+cd runner
 LOCAL_RANK=0,1
 CUDA_VISIBLE_DEVICES=0,1
 export NGPUS=2

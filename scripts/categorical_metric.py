@@ -3,7 +3,7 @@ import os
 import re
 from tqdm import tqdm
 
-annot_path = '/train20/intern/permanent/ycpan4/dataset/NumberSense/annotation/annot_test.json'
+annot_path = 'your test annotation file path'
 
 def metric(result_file_path):
     annot_data = json.load(open(annot_path, 'r'))
@@ -103,8 +103,7 @@ def process_metric(result_file_path):
     return process_acc_in_all, process_acc_in_correct
 
 
-def main():
-    root_path = '/train20/intern/permanent/ycpan4/code/NumberSense/V3/experiments/NumberSense/results'
+def main(root_path):
     file_names = [f for f in os.listdir(root_path) if '.' in f]
 
     annot_path_list = [f'{root_path}/{fname}' for fname in  file_names]
@@ -120,22 +119,9 @@ def main():
             category_accs.append(category_acc)
 
     formal_print(tasks, mean_accs, category_accs)
-
-def test():
-    metric(
-        '/train20/intern/permanent/ycpan4/code/NumberSense/V1/experiments/results/swin_bert_direct.json'
-    )
-
-def process_acc_main():
-    file_names = [
-        'swin-bert-cot_NumberSense_beam10_top1_all.json',
-        'swin-bert-cot-plugin_NumberSense_beam10_top1.json',
-        'swin-bert-expr-plugin_NumberSense_beam10_top1.json',
-        'swin-bert-expr_NumberSense_beam10_top1.json',
-        # 'swin-bert-expr-before_NumberSense_beam10_top1.json'
-    ]
-    root_path = '/train20/intern/permanent/ycpan4/code/NumberSense/V3/experiments/NumberSense/results'
-    annot_path_list = [f'{root_path}/{fname}' for fname in  file_names]
+    
+def process_acc_main(file_names, root_path):
+    annot_path_list = [f'{root_path}/{fname}' for fname in file_names]
     annot_path_list = sorted(annot_path_list)
     process_accs = []
     for path in annot_path_list:
@@ -143,9 +129,7 @@ def process_acc_main():
         acc_in_all = int(acc_in_all * 10000) / 10000
         print(path.split('/')[-1], acc_in_all, acc_in_correct)
 
-def geoqa_metric_main():
-    result_path = '/train20/intern/permanent/ycpan4/code/NumberSense/V3/experiments/GeoQA/results/cased-cot-direct-3_GeoQA_beam10_top10.json'
-    annot_path = '/train20/intern/permanent/ycpan4/dataset/unigeo/calculation_test_processed.json'
+def geoqa_metric_main(result_path, annot_path):
     result_data = json.load(open(result_path, 'r'))
     annot_data = json.load(open(annot_path, 'r'))
     num_dict = {
